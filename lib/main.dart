@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Pokedex App',
+    debugShowCheckedModeBanner: false,
     theme: ThemeData(
       fontFamily: 'Roboto',
       colorScheme: ColorScheme.fromSeed(

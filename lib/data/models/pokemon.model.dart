@@ -1,9 +1,13 @@
 import 'dart:math';
 
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pokedex_app/data/models/pokemon_ref.model.dart';
 import 'package:pokedex_app/data/models/pokemon_stats.model.dart';
 import 'package:pokedex_app/data/models/pokemon_type.model.dart';
 
+part 'pokemon.model.g.dart';
+
+@JsonSerializable()
 class Pokemon {
   const Pokemon({
     required this.id,
@@ -21,9 +25,16 @@ class Pokemon {
   final String name;
   final String image;
   final PokemonStats stats;
+  @JsonKey(name: 'apiTypes')
   final List<PokemonType> types;
+  @JsonKey(name: 'apiGeneration')
   final int generation;
+  @JsonKey(name: 'apiEvolutions')
   final List<PokemonRef> evolutions;
+
+  factory Pokemon.fromJson(Map<String, dynamic> json) => _$PokemonFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PokemonToJson(this);
 
   static List<Pokemon> mocks() => List<Pokemon>.generate(
     50,
