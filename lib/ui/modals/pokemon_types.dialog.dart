@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon_type.model.dart';
+import 'package:pokedex_app/ui/cubit/pokemons.cubit.dart';
 import 'package:pokedex_app/ui/modals/pokemon_card_type.widget.dart';
 
 import '../../data/api/pokemon.service.dart';
 
 class PokemonTypesDialog extends StatelessWidget {
   const PokemonTypesDialog({
-    super.key,
+    super.key, required this.pokemonCubit,
   });
+
+  final PokemonsCubit pokemonCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class PokemonTypesDialog extends StatelessWidget {
                   return InkWell(
                     child: PokemonCardTypeWidget(type: type),
                     onTap: () {
+                      pokemonCubit.getPokemonsFilteredByType(type.name);
                       Navigator.pop(context);
                     },
                   );
@@ -58,4 +62,6 @@ class PokemonTypesDialog extends StatelessWidget {
       ),
     );
   }
+
+  void _loadFilteredDataByType(BuildContext context, String name) {}
 }

@@ -31,6 +31,23 @@ class PokemonService {
     }
   }
 
+  static Future<List<Pokemon>> fetchPokemonByType(String typeName) async {
+    final Uri url = Uri.parse('$_baseUrl/pokemon/type/$typeName');
+    final http.Response response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      throw Exception('Pokemon list by type not available');
+    }
+
+    try {
+      final List<dynamic> list = json.decode(response.body);
+      List<Pokemon> res = list.map((dynamic model) => Pokemon.fromJson(model)).toList();
+      return res;
+    } catch (e) {
+      throw Exception('Pokemon list by type not available');
+    }
+  }
+
   static Future<List<PokemonType>> fetchPokemonTypeList() async {
     final Uri url = Uri.parse('$_baseUrl/types');
     final http.Response response = await http.get(url);

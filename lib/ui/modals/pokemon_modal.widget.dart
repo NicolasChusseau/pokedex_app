@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:pokedex_app/ui/cubit/pokemons.cubit.dart';
 import 'package:pokedex_app/ui/modals/pokemon_types.dialog.dart';
 
 class PokemonModal extends StatelessWidget {
   const PokemonModal({
     super.key,
+    required this.pokemonCubit,
   });
+
+  final PokemonsCubit pokemonCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,9 @@ class PokemonModal extends StatelessWidget {
           onTap: () {
             showModalBottomSheet(
               context: context,
-              builder: (BuildContext context) => const PokemonTypesDialog(),
+              builder: (BuildContext context) {
+                return PokemonTypesDialog(pokemonCubit: pokemonCubit,);
+              }
             );
           }
         ),
